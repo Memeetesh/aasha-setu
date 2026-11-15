@@ -11,8 +11,10 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
 
-SRC = "/home/falseprophet/Documents/projects 3rd sem/sar drone/SIH2026-IDEA-Presentation-Format.pptx"
-OUT = "/home/falseprophet/Documents/projects 3rd sem/sar drone/SIH_Final_Presentation.pptx"
+from pathlib import Path
+_DECKS = Path(__file__).parent / "presentations"
+SRC = str(_DECKS / "SIH2026-IDEA-Presentation-Format.pptx")
+OUT = str(_DECKS / "SIH_Final_Presentation.pptx")
 
 # ---- palette -------------------------------------------------------------
 NAVY  = RGBColor(0x0B, 0x2E, 0x4E)
