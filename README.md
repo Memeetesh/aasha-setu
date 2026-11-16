@@ -90,13 +90,12 @@ Principles worth knowing:
 ## Repository layout
 
 ```
-backend/     FastAPI app — API, ORM models, auth, GIS, risk, routing, SSE, weather/places/chat
+backend/     FastAPI app — API, ORM models, auth, GIS, risk, routing, SSE, disaster simulator, weather/places/chat
 frontend/    Next.js 16 PWA — citizen app + command dashboard
 android/     Native Kotlin / Jetpack Compose citizen app (in progress)
 ml/          Standalone CV + NLP prototypes (not wired into the app)
-simulator/   Disaster-simulation panel backend
 docs/        Architecture, Android plan, SOS demo script
-DEPLOY.md    Vercel + Render + Supabase runbook
+DEPLOY.md    Cloudflare Pages + Render + Supabase runbook
 render.yaml  Render Blueprint for the backend
 ```
 
@@ -111,7 +110,7 @@ render.yaml  Render Blueprint for the backend
 | Backend | FastAPI, Uvicorn, SQLAlchemy 2.0 (sync) + GeoAlchemy2, Alembic, Pydantic v2, python-jose + bcrypt, httpx |
 | Database | PostgreSQL 16 + PostGIS 3.4 |
 | Realtime | Server-Sent Events + in-process broker |
-| Hosting | Vercel (frontend) · Render (backend) · Supabase (managed Postgres + PostGIS) |
+| Hosting | Cloudflare Pages (frontend) · Render (backend) · Supabase (managed Postgres + PostGIS) |
 | External APIs | Open-Meteo, OpenStreetMap Overpass, OSRM, Google Gemini — all behind FastAPI, all with a fallback |
 
 ---
@@ -204,9 +203,10 @@ backend and frontend.
 
 See [`DEPLOY.md`](DEPLOY.md). In short: Supabase for the database (use the
 **Session pooler**, port 5432), Render for the backend via `render.yaml`
-(self-migrates and self-seeds on boot, self-pings to stay warm), Vercel for
-the frontend (root directory `frontend`). `.github/workflows/keepalive.yml`
-is an external cron that also wakes the free-tier backend from sleep.
+(self-migrates and self-seeds on boot, self-pings to stay warm), Cloudflare
+Pages for the frontend (static export, root directory `frontend`).
+`.github/workflows/keepalive.yml` is an external cron that also wakes the
+free-tier backend from sleep.
 
 ---
 
