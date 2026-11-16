@@ -120,12 +120,11 @@ Pages instead of using the `.pages.dev` link:
 
 Right now the backend blocks the frontend. Fix it:
 
-1. Back in **Render** → **drishti-api** → **Environment**.
-2. Add one more variable:
-   | Key | Value |
-   |-----|-------|
-   | `CORS_ORIGINS` | your `FRONTEND_URL` — e.g. `https://aasha-setu.pages.dev` (add your custom domain too, comma-separated, once it's active) |
-3. **Save Changes**. Render redeploys.
+1. In `render.yaml`, set `CORS_ORIGINS` to your `FRONTEND_URL` — e.g.
+   `https://aasha-setu.pages.dev` (add your custom domain too, comma-separated,
+   once it's active).
+2. Commit and push. Render syncs the Blueprint and redeploys. (Don't set it
+   in the dashboard — the next sync would overwrite it.)
 
 Now open your `FRONTEND_URL`. Register an account and log in — the home page
 should show risk cards and nearby shelters.
