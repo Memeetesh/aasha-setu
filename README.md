@@ -4,6 +4,22 @@ A disaster-management platform built around one loop: a citizen sees their
 live local risk, raises a report or an SOS, and a command centre verifies it
 and dispatches help — all in real time. Demo hazard: **urban flooding**.
 
+**Live demo: [aasha-setu.pages.dev](https://aasha-setu.pages.dev)**. The citizen
+app signs in as a demo resident automatically; the command dashboard is at
+[`/login`](https://aasha-setu.pages.dev/login) with `9000000001` / `drishtiops`.
+Allow location access for local forecasts; the demo risk zones and shelters are
+in Chennai. It runs on free hosting, so if the API has been idle the first load
+can take up to a minute.
+
+<p align="center">
+  <img src="docs/screenshots/citizen-home.png" width="250" alt="Citizen app: area alert and live rainfall forecast">
+  &nbsp;
+  <img src="docs/screenshots/citizen-emergency.png" width="250" alt="Citizen app: SOS screen">
+</p>
+<p align="center">
+  <img src="docs/screenshots/command-dashboard.png" width="820" alt="Command dashboard: live SOS map and signal feed">
+</p>
+
 Two front ends over one API:
 
 - **Aasha Setu** (citizen) — a Next.js PWA and a native Android app: live
