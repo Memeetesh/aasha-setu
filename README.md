@@ -90,11 +90,10 @@ Principles worth knowing:
 ## Repository layout
 
 ```
-backend/     FastAPI app — API, ORM models, auth, GIS, risk, routing, SSE, weather/places/chat
+backend/     FastAPI app — API, ORM models, auth, GIS, risk, routing, SSE, disaster simulator, weather/places/chat
 frontend/    Next.js 16 PWA — citizen app + command dashboard
 android/     Native Kotlin / Jetpack Compose citizen app (in progress)
 ml/          Standalone CV + NLP prototypes (not wired into the app)
-simulator/   Disaster-simulation panel backend
 docs/        Architecture, Android plan, SOS demo script
 DEPLOY.md    Cloudflare Pages + Render + Supabase runbook
 render.yaml  Render Blueprint for the backend
