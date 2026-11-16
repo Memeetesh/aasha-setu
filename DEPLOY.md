@@ -4,7 +4,7 @@ You will use three free websites:
 
 - **Supabase** — the database
 - **Render** — the backend (the API)
-- **Vercel** — the frontend (what people see)
+- **Cloudflare Pages** — the frontend (what people see)
 
 Total time: about 15 minutes. No credit card needed.
 
@@ -74,20 +74,45 @@ Quick check: open `BACKEND_URL/api/v1/health` in a browser. You should see
 
 ---
 
-## Step 3 — Frontend (Vercel)
+## Step 3 — Frontend (Cloudflare Pages)
 
-1. Go to **https://vercel.com** and sign in with GitHub.
-2. Click **Add New...** → **Project** → import the same repository.
-3. On the setup screen:
-   - **Root Directory** → click **Edit** → choose **`frontend`**.
-   - Open **Environment Variables** and add one:
-     | Key | Value |
-     |-----|-------|
-     | `NEXT_PUBLIC_API_URL` | your `BACKEND_URL` **plus `/api/v1`** — e.g. `https://drishti-api.onrender.com/api/v1` |
-4. Click **Deploy** and wait ~1 minute.
-5. Vercel gives you a link like `https://aasha-setu-xxxx.vercel.app`.
+The frontend has no server code — it's a static export, so Cloudflare Pages
+hosts it directly with no build adapter.
+
+1. Go to **https://dash.cloudflare.com** → **Workers & Pages** → **Create** →
+   **Pages** → **Connect to Git** → pick the same repository.
+2. Build settings:
+   | Setting | Value |
+   |---|---|
+   | Framework preset | Next.js (Static HTML Export) |
+   | Root directory | `frontend` |
+   | Build command | `npm run build` |
+   | Build output directory | `out` |
+3. **Environment variables** → add:
+   | Key | Value |
+   |-----|-------|
+   | `NEXT_PUBLIC_API_URL` | your `BACKEND_URL` **plus `/api/v1`** — e.g. `https://drishti-api.onrender.com/api/v1` |
+4. Click **Save and Deploy**, wait ~1 minute.
+5. Cloudflare gives you a link like `https://aasha-setu.pages.dev`.
 
 **COPY THIS** — call it `FRONTEND_URL`.
+
+### Optional: your own domain
+
+Already have a domain (e.g. bought on GoDaddy)? Point it at Cloudflare
+Pages instead of using the `.pages.dev` link:
+
+1. In the same Pages project → **Custom domains** → **Set up a domain** →
+   type your domain.
+2. If the domain isn't already on this Cloudflare account: **Add a site** in
+   the main Cloudflare dashboard first, which gives you two nameservers
+   (like `xxx.ns.cloudflare.com`).
+3. At your registrar (GoDaddy → your domain → **Manage DNS** / **Nameservers**),
+   replace the existing nameservers with those two.
+4. Wait for propagation (usually under an hour, can take up to 48h). Cloudflare
+   emails you once it's active; the domain then shows "Active" in the
+   dashboard and SSL is issued automatically.
+5. Update `FRONTEND_URL` below to your real domain.
 
 ---
 
@@ -99,7 +124,7 @@ Right now the backend blocks the frontend. Fix it:
 2. Add one more variable:
    | Key | Value |
    |-----|-------|
-   | `CORS_ORIGINS` | your `FRONTEND_URL` — e.g. `https://aasha-setu-xxxx.vercel.app` |
+   | `CORS_ORIGINS` | your `FRONTEND_URL` — e.g. `https://aasha-setu.pages.dev` (add your custom domain too, comma-separated, once it's active) |
 3. **Save Changes**. Render redeploys.
 
 Now open your `FRONTEND_URL`. Register an account and log in — the home page
@@ -134,7 +159,7 @@ Done. Your site is live.
 
 ## Updating later
 
-- Push to `main` → Vercel and Render redeploy by themselves.
+- Push to `main` → Cloudflare Pages and Render redeploy by themselves.
 - To reset the demo data, run this from your own machine (Render's free tier
   has no shell):
   ```
