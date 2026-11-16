@@ -23,14 +23,16 @@ import type {
 const DEFAULT_CENTER: [number, number] = [80.2707, 13.0827];
 const DEFAULT_ZOOM = 11;
 
-// CARTO's free raster tiles: OSM data, permissive CORS, confirmed 200 from
-// this environment. We use an inline style object (not a remote style URL)
+// OpenStreetMap's own raster tiles — keyless, CORS-enabled, and fine for
+// interactive viewing under https://operations.osmfoundation.org/policies/tiles/
+// (CARTO's basemaps now return an "API KEY REQUIRED" image instead). We use
+// an inline style object (not a remote style URL)
 // so there are no external font/sprite/glyph dependencies that can fail
 // silently and leave the canvas white.
 const PRIMARY_TILE_URL =
-  "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+  "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-// Fallback CDN — different origin, so if CARTO is blocked the user still
+// Fallback CDN — different origin, so if the primary is blocked the user still
 // gets background imagery. Also confirmed reachable (404 on wrong tile
 // coords means it's reachable, just no tile at that location).
 const FALLBACK_TILE_URL =
@@ -78,7 +80,7 @@ function buildInlineStyle(tileUrl: string) {
         tiles: [tileUrl],
         tileSize: 256,
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       },
     },
     layers: [{ id: "osm", type: "raster" as const, source: "osm" }],
