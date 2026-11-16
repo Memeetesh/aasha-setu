@@ -49,7 +49,7 @@ git push origin main
 
 1. Go to **https://render.com** and sign in with GitHub.
 2. Click **New +** (top right) → **Blueprint**.
-3. Choose your `AI-disaster-management...` repository → click **Connect**.
+3. Choose your `aasha-setu` repository → click **Connect**.
 4. Render finds the `render.yaml` file and shows a service called
    **drishti-api**. Click **Apply** / **Create**.
 5. The first build will fail or wait — that's fine, you haven't added the

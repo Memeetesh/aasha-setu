@@ -3,7 +3,8 @@
 # database is Supabase (PostGIS).
 #
 # In the Render dashboard, set the `sync: false` vars after the first deploy:
-#   DATABASE_URL   - Supabase "Connection string" (Transaction pooler is fine);
+#   DATABASE_URL   - Supabase "Connection string", Session pooler (port 5432) —
+#                    NOT the Transaction pooler (6543), it breaks migrations;
 #                    a bare postgres:// URL is auto-rewritten by app/config.py
 #   CORS_ORIGINS   - your Cloudflare Pages URL(s) and custom domain, comma-
 #                    separated, e.g. https://aasha-setu.pages.dev,https://your-domain.com
