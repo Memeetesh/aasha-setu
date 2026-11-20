@@ -50,13 +50,13 @@ Icon.displayName = "Icon";
 export function getRiskColor(level: string): { bg: string; text: string; border: string; badge: string; bar: string } {
   switch (level) {
     case "low":
-      return { bg: "bg-safe-50", text: "text-safe-700", border: "border-safe-200", badge: "bg-safe-100 text-safe-700", bar: "bg-safe-500" };
+      return { bg: "bg-safe-50", text: "text-safe-700", border: "border-safe-200", badge: "bg-slate2-100 text-slate2-700", bar: "bg-safe-500" };
     case "moderate":
-      return { bg: "bg-warn-50", text: "text-warn-700", border: "border-warn-200", badge: "bg-warn-100 text-warn-700", bar: "bg-warn-500" };
+      return { bg: "bg-warn-50", text: "text-warn-700", border: "border-warn-200", badge: "bg-slate2-100 text-slate2-700", bar: "bg-warn-500" };
     case "high":
-      return { bg: "bg-danger-50", text: "text-danger-700", border: "border-danger-200", badge: "bg-danger-100 text-danger-700", bar: "bg-danger-500" };
+      return { bg: "bg-danger-50", text: "text-danger-700", border: "border-danger-200", badge: "bg-danger-50 text-danger-700", bar: "bg-danger-500" };
     case "critical":
-      return { bg: "bg-danger-50", text: "text-danger-700", border: "border-danger-300", badge: "bg-danger-600 text-white", bar: "bg-danger-600" };
+      return { bg: "bg-danger-50", text: "text-danger-700", border: "border-danger-300", badge: "bg-danger-50 text-danger-700", bar: "bg-danger-600" };
     default:
       return { bg: "bg-slate2-50", text: "text-slate2-600", border: "border-slate2-200", badge: "bg-slate2-100 text-slate2-600", bar: "bg-slate2-400" };
   }

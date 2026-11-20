@@ -27,7 +27,7 @@ export function RescueOpsPanel() {
   return (
     <div className="border-t border-slate-800 px-4 py-4">
       <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">Rescue Ops</h2>
+        <h2 className="text-sm font-medium text-slate-400">Rescue ops</h2>
         <span className="text-xs text-slate-500">
           {active.length} active · {completed} completed
         </span>

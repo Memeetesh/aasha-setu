@@ -229,7 +229,8 @@ ${markersJs}
   #map { height: 60vh; min-height: 320px; border-radius: 12px; border: 1px solid #e2e8f0; margin: 10px 0 4px; }
   .nomap { padding: 34px 16px; text-align: center; color: #64748b; background: #eef2f7; border-radius: 12px; margin: 10px 0; }
   .legend { font-size: 12px; color: #475569; }
-  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: #475569; margin: 22px 0 8px; }
+  .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 4px 0 0; vertical-align: 0; }
+  h2 { font-size: 14px; font-weight: 600; color: #334155; margin: 22px 0 8px; }
   ul { list-style: none; margin: 0; padding: 0; }
   li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid #e2e8f0; }
   .pin { flex: 0 0 24px; height: 24px; border-radius: 50%; color: #fff; font-weight: 700; font-size: 12px;
@@ -244,11 +245,11 @@ ${markersJs}
   .tips li { display: list-item; border: 0; padding: 3px 0; margin-left: 18px; }
   footer { color: #94a3b8; font-size: 11px; margin-top: 20px; }
 </style></head><body><div class="wrap">
-  <h1>Offline Emergency Map</h1>
+  <h1>Offline emergency map</h1>
   <div class="sub">Centred on ${input.lat.toFixed(5)}, ${input.lon.toFixed(5)} &middot; saved ${esc(when)}</div>
   ${acc}
   ${mapBlock}
-  <p class="legend">🟢 You &nbsp; 🔵 Relief shelter &nbsp; 🔴 Hospital (H) &nbsp;·&nbsp; drag to pan, pinch / scroll to zoom</p>
+  <p class="legend"><i style="background:#16a34a"></i>You &nbsp; <i style="background:#0284c7"></i>Relief shelter &nbsp; <i style="background:#dc2626"></i>Hospital (H) &nbsp;·&nbsp; drag to pan, pinch or scroll to zoom</p>
 
   <h2>Emergency numbers</h2>
   <div class="lines">

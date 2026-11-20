@@ -20,9 +20,9 @@ const alertSeverityConfig: Record<SeverityLevel, { badge: string; dot: string; l
 };
 
 const typeConfig = {
-  "missing-person": { label: "Missing Person", icon: "Search", color: "text-danger-600 bg-danger-50" },
-  "found-person": { label: "Found Person", icon: "CheckCircle2", color: "text-safe-600 bg-safe-50" },
-  belonging: { label: "Belonging", icon: "Package", color: "text-navy-600 bg-navy-50" },
+  "missing-person": { label: "Missing person", icon: "Search", color: "text-slate2-600 bg-slate2-100" },
+  "found-person": { label: "Found person", icon: "CheckCircle2", color: "text-slate2-600 bg-slate2-100" },
+  belonging: { label: "Belonging", icon: "Package", color: "text-slate2-600 bg-slate2-100" },
 };
 
 export default function SupportPage() {
@@ -39,24 +39,24 @@ export default function SupportPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-navy-900">Support &amp; Recovery</h1>
-        <p className="text-sm text-slate2-500 mt-1">Post-disaster assistance, communication, and emotional wellbeing.</p>
-        <span className="badge bg-slate2-100 text-slate2-500 text-[10px] mt-2">
-          Lost &amp; Found and Emotional Support are still sample data
+        <h1 className="text-2xl md:text-3xl font-semibold text-navy-900">Support and recovery</h1>
+        <p className="text-sm text-slate2-500 mt-1">Post-disaster assistance, communication and emotional wellbeing</p>
+        <span className="badge bg-slate2-100 text-slate2-500 mt-2">
+          Lost and found and emotional support use sample data
         </span>
       </div>
 
       <div className="flex gap-1 p-1 bg-white rounded-2xl border border-slate2-100 shadow-[var(--shadow-card)] overflow-x-auto">
         {[
-          { id: "lost-found" as const, icon: "Search", label: "Lost & Found" },
-          { id: "authority" as const, icon: "Megaphone", label: "Authority Messages" },
-          { id: "emotional" as const, icon: "Heart", label: "Emotional Support" },
+          { id: "lost-found" as const, icon: "Search", label: "Lost and found" },
+          { id: "authority" as const, icon: "Megaphone", label: "Authority messages" },
+          { id: "emotional" as const, icon: "Heart", label: "Emotional support" },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 min-w-fit flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-              activeTab === tab.id ? "bg-navy-700 text-white shadow-sm" : "text-slate2-600 hover:bg-slate2-50"
+            className={`flex-1 min-w-fit flex items-center justify-center gap-2 px-4 py-2.5 rounded-[10px] text-sm font-medium transition-colors duration-150 ${
+              activeTab === tab.id ? "bg-navy-700 text-white" : "text-slate2-600 hover:bg-slate2-50"
             }`}
           >
             <Icon name={tab.icon} className="w-4 h-4" />
@@ -69,29 +69,29 @@ export default function SupportPage() {
         <div className="space-y-5 animate-fade-in">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <button onClick={() => setReportOpen(true)} className="card card-hover p-5 flex flex-col items-start gap-3 text-left">
-              <div className="w-11 h-11 rounded-xl bg-danger-50 flex items-center justify-center">
-                <Icon name="UserPlus" className="w-5.5 h-5.5 text-danger-600" />
+              <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                <Icon name="UserPlus" className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
               </div>
               <div>
-                <p className="text-sm font-bold text-navy-900">Report Missing Person</p>
+                <p className="text-sm font-semibold text-navy-900">Report missing person</p>
                 <p className="text-xs text-slate2-500 mt-1">Report someone who is missing</p>
               </div>
             </button>
             <button onClick={() => setReportOpen(true)} className="card card-hover p-5 flex flex-col items-start gap-3 text-left">
-              <div className="w-11 h-11 rounded-xl bg-safe-50 flex items-center justify-center">
-                <Icon name="CheckCircle2" className="w-5.5 h-5.5 text-safe-600" />
+              <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                <Icon name="CheckCircle2" className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
               </div>
               <div>
-                <p className="text-sm font-bold text-navy-900">Report Found Person</p>
+                <p className="text-sm font-semibold text-navy-900">Report found person</p>
                 <p className="text-xs text-slate2-500 mt-1">Report someone you have found</p>
               </div>
             </button>
             <button onClick={() => setReportOpen(true)} className="card card-hover p-5 flex flex-col items-start gap-3 text-left">
-              <div className="w-11 h-11 rounded-xl bg-navy-50 flex items-center justify-center">
-                <Icon name="Package" className="w-5.5 h-5.5 text-navy-600" />
+              <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                <Icon name="Package" className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
               </div>
               <div>
-                <p className="text-sm font-bold text-navy-900">Report Found Belonging</p>
+                <p className="text-sm font-semibold text-navy-900">Report found belonging</p>
                 <p className="text-xs text-slate2-500 mt-1">Report an item you have found</p>
               </div>
             </button>
@@ -100,7 +100,7 @@ export default function SupportPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Icon name="Search" className="w-4 h-4 text-slate2-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input type="text" placeholder="Search by name, location, or description..." className="input pl-10" />
+              <input type="text" placeholder="Search reports" className="input pl-10" />
             </div>
             <div className="flex gap-1.5">
               {[
@@ -112,7 +112,7 @@ export default function SupportPage() {
                 <button
                   key={f.id}
                   onClick={() => setLfFilter(f.id)}
-                  className={`px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                  className={`px-3.5 py-2.5 rounded-[10px] text-sm font-medium transition-colors ${
                     lfFilter === f.id ? "bg-navy-700 text-white" : "bg-white text-slate2-600 border border-slate2-200 hover:bg-slate2-50"
                   }`}
                 >
@@ -133,7 +133,7 @@ export default function SupportPage() {
                         <Icon name={tc.icon} className="w-5 h-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-navy-900">{item.name}</p>
+                        <p className="text-sm font-semibold text-navy-900">{item.name}</p>
                         <p className="text-xs text-slate2-500">{tc.label}</p>
                       </div>
                     </div>
@@ -224,12 +224,12 @@ export default function SupportPage() {
 
       {activeTab === "emotional" && (
         <div className="space-y-6 animate-fade-in">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-support-50 to-navy-50 p-8 border border-support-100">
-            <div className="relative max-w-lg">
-              <div className="w-14 h-14 rounded-2xl bg-support-100 flex items-center justify-center mb-4">
-                <Icon name="Heart" className="w-7 h-7 text-support-600" />
+          <div className="rounded-2xl bg-support-50/60 p-6 md:p-8 border border-support-100">
+            <div className="max-w-lg">
+              <div className="w-10 h-10 rounded-xl bg-support-100 flex items-center justify-center mb-4">
+                <Icon name="Heart" className="w-5 h-5 text-support-600" strokeWidth={1.75} />
               </div>
-              <h2 className="text-2xl font-bold text-navy-900 mb-2">You don&apos;t have to go through recovery alone.</h2>
+              <h2 className="text-2xl font-semibold text-navy-900 mb-2">You don&apos;t have to go through recovery alone</h2>
               <p className="text-sm text-slate2-600 leading-relaxed">
                 Recovery takes time, and it&apos;s okay to ask for help. These tools are here to support you — they are not a substitute for professional care.
               </p>
@@ -237,7 +237,7 @@ export default function SupportPage() {
           </div>
 
           <section>
-            <h3 className="text-lg font-bold text-navy-900 mb-1">Guided Breathing</h3>
+            <h3 className="text-lg font-semibold text-navy-900 mb-1">Guided breathing</h3>
             <p className="text-xs text-slate2-500 mb-4">Simple exercises to help calm your mind and body.</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {breathingExercises.map((ex) => (
@@ -247,7 +247,7 @@ export default function SupportPage() {
                       <Icon name="Wind" className="w-5 h-5 text-support-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-navy-900">{ex.title}</p>
+                      <p className="text-sm font-semibold text-navy-900">{ex.title}</p>
                       <p className="text-xs text-slate2-500">{ex.duration}</p>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ export default function SupportPage() {
           </section>
 
           <section>
-            <h3 className="text-lg font-bold text-navy-900 mb-1">Grounding Exercises</h3>
+            <h3 className="text-lg font-semibold text-navy-900 mb-1">Grounding exercises</h3>
             <p className="text-xs text-slate2-500 mb-4">Techniques to bring you back to the present moment.</p>
             <div className="space-y-3">
               {groundingExercises.map((ex) => (
@@ -282,7 +282,7 @@ export default function SupportPage() {
                     <Icon name="Flower2" className="w-5 h-5 text-navy-600" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-bold text-navy-900">{ex.title}</p>
+                    <p className="text-sm font-semibold text-navy-900">{ex.title}</p>
                     <p className="text-xs text-slate2-600 mt-1">{ex.description}</p>
                   </div>
                 </div>
@@ -291,13 +291,13 @@ export default function SupportPage() {
           </section>
 
           <section>
-            <h3 className="text-lg font-bold text-navy-900 mb-4">Connect &amp; Get Support</h3>
+            <h3 className="text-lg font-semibold text-navy-900 mb-4">Connect and get support</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="card p-5">
                 <div className="w-11 h-11 rounded-xl bg-support-50 flex items-center justify-center mb-4">
                   <Icon name="Headphones" className="w-5.5 h-5.5 text-support-600" />
                 </div>
-                <p className="text-sm font-bold text-navy-900 mb-1">Talk to Someone</p>
+                <p className="text-sm font-semibold text-navy-900 mb-1">Talk to Someone</p>
                 <p className="text-xs text-slate2-500 mb-4">
                   Chat with Saathi, a supportive AI companion that can listen and share simple coping ideas.
                 </p>
@@ -310,16 +310,16 @@ export default function SupportPage() {
                 <div className="w-11 h-11 rounded-xl bg-navy-50 flex items-center justify-center mb-4">
                   <Icon name="Phone" className="w-5.5 h-5.5 text-navy-600" />
                 </div>
-                <p className="text-sm font-bold text-navy-900 mb-1">Helpline Numbers</p>
+                <p className="text-sm font-semibold text-navy-900 mb-1">Helpline numbers</p>
                 <p className="text-xs text-slate2-500 mb-4">Free, confidential support lines available 24/7.</p>
                 <div className="space-y-2">
                   <a href="tel:9152987821" className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate2-50 hover:bg-slate2-100">
                     <span className="text-xs font-medium text-navy-700">iCall Mental Health</span>
-                    <span className="text-sm font-bold text-navy-900">9152987821</span>
+                    <span className="text-sm font-semibold text-navy-900">9152987821</span>
                   </a>
                   <a href="tel:18602662345" className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate2-50 hover:bg-slate2-100">
                     <span className="text-xs font-medium text-navy-700">Vandrevala Foundation</span>
-                    <span className="text-sm font-bold text-navy-900">1860-2662-345</span>
+                    <span className="text-sm font-semibold text-navy-900">1860-2662-345</span>
                   </a>
                 </div>
               </div>
@@ -336,10 +336,10 @@ export default function SupportPage() {
       )}
 
       {reportOpen && (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-fade-in" onClick={() => setReportOpen(false)}>
-          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-slide-up" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/50 animate-fade-in" onClick={() => setReportOpen(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-slide-up" onClick={(e) => e.stopPropagation()}>
             <div className="px-6 py-5 border-b border-slate2-100 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-navy-900">Report a Listing</h2>
+              <h2 className="text-lg font-semibold text-navy-900">Report a Listing</h2>
               <button onClick={() => setReportOpen(false)} className="text-slate2-400 hover:text-slate2-600 transition-colors">
                 <Icon name="X" className="w-5 h-5" />
               </button>
@@ -354,11 +354,11 @@ export default function SupportPage() {
                 <textarea className="input min-h-[80px] resize-none" placeholder="Provide details — appearance, clothing, last known location..." />
               </div>
               <div>
-                <label className="text-xs font-semibold text-slate2-600 mb-1.5 block">Last Known Location</label>
+                <label className="text-xs font-semibold text-slate2-600 mb-1.5 block">Last known location</label>
                 <input className="input" placeholder="Enter location" />
               </div>
               <div>
-                <label className="text-xs font-semibold text-slate2-600 mb-1.5 block">Contact Number</label>
+                <label className="text-xs font-semibold text-slate2-600 mb-1.5 block">Contact number</label>
                 <input className="input" placeholder="+91 ..." />
               </div>
               <button

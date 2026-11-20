@@ -49,9 +49,9 @@ export function ManualIncidentForm() {
     <div className="border-t border-slate-800 px-4 py-4">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-sm font-semibold uppercase tracking-wide text-slate-400 hover:text-slate-200"
+        className="flex w-full items-center justify-between text-sm font-medium text-slate-400 hover:text-slate-200"
       >
-        Log Incident (phoned in)
+        Log incident (phoned in)
         <span className="text-slate-500">{open ? "−" : "+"}</span>
       </button>
 

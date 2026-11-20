@@ -14,7 +14,7 @@ export const riskCards: RiskCard[] = [
   {
     id: "rainfall",
     icon: "CloudRain",
-    title: "Rainfall Prediction",
+    title: "Rainfall",
     level: "moderate",
     probability: 58,
     recommendation: "Stay alert",
@@ -23,7 +23,7 @@ export const riskCards: RiskCard[] = [
   {
     id: "flood",
     icon: "Waves",
-    title: "Flood Prediction",
+    title: "Flood",
     level: "high",
     probability: 72,
     recommendation: "Be prepared",
@@ -32,7 +32,7 @@ export const riskCards: RiskCard[] = [
   {
     id: "cyclone",
     icon: "Wind",
-    title: "Cyclone Prediction",
+    title: "Cyclone",
     level: "low",
     probability: 12,
     recommendation: "No threat",
@@ -41,7 +41,7 @@ export const riskCards: RiskCard[] = [
   {
     id: "landslide",
     icon: "Mountain",
-    title: "Landslide Prediction",
+    title: "Landslide",
     level: "moderate",
     probability: 45,
     recommendation: "Monitor area",
@@ -118,10 +118,10 @@ export const familyMembers: FamilyMember[] = [
 ];
 
 export const emergencyQuickActions: QuickAction[] = [
-  { id: "hospital", icon: "Hospital", label: "Nearest Hospital", detail: "2.4 km away", color: "text-safe-600 bg-safe-50" },
-  { id: "helpline", icon: "Phone", label: "Helpline Number", detail: "112", color: "text-navy-600 bg-navy-50" },
-  { id: "offline-map", icon: "MapPinned", label: "Offline Map", detail: "Download / Open Map", color: "text-warn-600 bg-warn-50" },
-  { id: "rescue", icon: "LifeBuoy", label: "Nearest Rescue Center", detail: "1.8 km away", color: "text-danger-600 bg-danger-50" },
+  { id: "hospital", icon: "Hospital", label: "Nearest hospital", detail: "2.4 km away", color: "text-safe-600 bg-safe-50" },
+  { id: "helpline", icon: "Phone", label: "Helpline number", detail: "112", color: "text-navy-600 bg-navy-50" },
+  { id: "offline-map", icon: "MapPinned", label: "Offline map", detail: "Download or open", color: "text-warn-600 bg-warn-50" },
+  { id: "rescue", icon: "LifeBuoy", label: "Nearest rescue centre", detail: "1.8 km away", color: "text-danger-600 bg-danger-50" },
 ];
 
 export const authorityMessages: AuthorityMessage[] = [
@@ -247,12 +247,12 @@ export const notifications = [
 
 export const breathingExercises = [
   { id: "1", title: "4-7-8 Breathing", description: "Inhale for 4 seconds, hold for 7, exhale for 8", duration: "5 min" },
-  { id: "2", title: "Box Breathing", description: "Equal inhale, hold, exhale, and hold", duration: "4 min" },
-  { id: "3", title: "Calm Breath", description: "Slow, deep belly breathing for relaxation", duration: "6 min" },
+  { id: "2", title: "Box breathing", description: "Equal inhale, hold, exhale, and hold", duration: "4 min" },
+  { id: "3", title: "Calm breath", description: "Slow, deep belly breathing for relaxation", duration: "6 min" },
 ];
 
 export const groundingExercises = [
   { id: "1", title: "5-4-3-2-1 Grounding", description: "Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste" },
-  { id: "2", title: "Body Scan", description: "Slowly bring attention to each part of your body from head to toe" },
-  { id: "3", title: "Safe Place Visualization", description: "Picture a calm, safe place in vivid detail" },
+  { id: "2", title: "Body scan", description: "Slowly bring attention to each part of your body from head to toe" },
+  { id: "3", title: "Safe place visualization", description: "Picture a calm, safe place in vivid detail" },
 ];

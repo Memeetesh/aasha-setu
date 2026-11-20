@@ -37,44 +37,49 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col justify-center px-4 py-16">
-      <h1 className="mb-1 text-xl font-bold text-white">Operator sign in</h1>
-      <p className="mb-6 text-sm text-slate-500">
-        Command-center access. The citizen app doesn&apos;t use this page.
-      </p>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="mb-1 block text-sm text-slate-400">Phone number</label>
-          <input
-            type="tel"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded border border-slate-700 bg-slate-900 px-3 py-2 text-white focus:border-red-600 focus:outline-none"
-          />
+    <div className="flex min-h-screen flex-1 items-center justify-center bg-slate2-50 px-4 py-16 text-navy-900">
+      <div className="w-full max-w-sm">
+        <p className="mb-6 text-sm font-semibold text-navy-900">Aasha Setu</p>
+        <div className="card p-6">
+          <h1 className="text-xl font-semibold">Operator sign in</h1>
+          <p className="mt-1 mb-6 text-sm text-slate2-500">
+            Command centre access. The citizen app doesn&apos;t use this page.
+          </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-slate2-700">Phone number</label>
+              <input
+                id="phone"
+                type="tel"
+                required
+                autoComplete="username"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="input"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-slate2-700">Password</label>
+              <input
+                id="password"
+                type="password"
+                required
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input"
+              />
+            </div>
+            {error && <p className="text-sm text-danger-600">{error}</p>}
+            <button type="submit" disabled={submitting} className="btn-primary w-full h-11 disabled:opacity-50">
+              {submitting ? "Signing in…" : "Sign in"}
+            </button>
+          </form>
         </div>
-        <div>
-          <label className="mb-1 block text-sm text-slate-400">Password</label>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded border border-slate-700 bg-slate-900 px-3 py-2 text-white focus:border-red-600 focus:outline-none"
-          />
-        </div>
-        {error && <p className="text-sm text-red-400">{error}</p>}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full rounded bg-red-700 py-2 font-semibold text-white hover:bg-red-600 disabled:opacity-50"
-        >
-          {submitting ? "Signing in…" : "Sign in"}
-        </button>
-      </form>
-      <p className="mt-4 text-xs text-slate-600">
-        Demo admin: <span className="font-mono text-slate-400">9000000001 / drishtiops</span>
-      </p>
+        <p className="mt-4 text-xs text-slate2-500">
+          Demo admin: <span className="font-mono text-slate2-700">9000000001 / drishtiops</span>
+        </p>
+      </div>
     </div>
   );
 }

@@ -89,7 +89,6 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
   }, [alerts, myReports]);
 
   const unreadCount = notes.filter((n) => !seen.has(n.id)).length;
-  const firstName = user?.name?.split(" ")[0] ?? "there";
   const initial = user?.name?.[0]?.toUpperCase() ?? "?";
 
   function markAllSeen() {
@@ -112,16 +111,13 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
     rank >= 4 ? "bg-danger-500" : rank >= 2 ? "bg-warn-500" : "bg-navy-500";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate2-100">
+    <header className="sticky top-0 z-50 bg-white border-b border-slate2-100">
       <div className="flex items-center justify-between px-4 md:px-6 py-3">
         <div className="flex items-center gap-3">
           <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-slate2-100 transition-colors text-navy-700" aria-label="Menu">
             <Icon name="Menu" className="w-5 h-5" />
           </button>
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-navy-800">Aasha Setu</p>
-            <p className="text-[11px] text-slate2-500">Disaster Management &amp; Community Resilience</p>
-          </div>
+          <p className="hidden sm:block lg:hidden text-sm font-semibold text-navy-800">Aasha Setu</p>
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
@@ -133,7 +129,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
             >
               <Icon name="Bell" className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] rounded-full bg-danger-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white px-0.5">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] rounded-full bg-danger-500 text-white text-[10px] font-medium tabular-nums flex items-center justify-center ring-2 ring-white px-0.5">
                   {unreadCount}
                 </span>
               )}
@@ -183,10 +179,10 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
 
           <div className="relative" ref={profileRef}>
             <button onClick={() => setProfileOpen(!profileOpen)} className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-slate2-100 transition-colors">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-navy-500 to-navy-700 flex items-center justify-center text-white text-sm font-bold">
+              <div className="w-8 h-8 rounded-full bg-navy-700 flex items-center justify-center text-white text-sm font-medium">
                 {initial}
               </div>
-              <span className="hidden sm:block text-sm font-semibold text-navy-700">Hi, {firstName}</span>
+              <span className="hidden sm:block text-sm font-medium text-navy-700">{user?.name}</span>
               <Icon name="ChevronDown" className="w-4 h-4 text-slate2-400 hidden sm:block" />
             </button>
             {profileOpen && (

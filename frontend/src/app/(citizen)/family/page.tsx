@@ -25,7 +25,7 @@ const PING_INTERVAL_MS = 120_000;
 // Small pill button (the shared .btn class bakes in larger padding via @apply,
 // which is awkward to override under Tailwind v4).
 const SM_BTN =
-  "inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg font-semibold text-xs transition-all active:scale-[0.98] disabled:opacity-60";
+  "inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg font-semibold text-xs transition-[background-color,color,transform] duration-150 active:scale-[0.98] disabled:opacity-60";
 
 const realStatusConfig: Record<
   FamilyStatus,
@@ -80,16 +80,16 @@ function LocationMapModal({
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/50 animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-slide-up"
+        className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-5 py-4 flex items-center justify-between border-b border-slate2-100">
           <div>
-            <p className="text-sm font-bold text-navy-900">{member.name}&apos;s last location</p>
+            <p className="text-sm font-semibold text-navy-900">{member.name}&apos;s last location</p>
             <p className="text-xs text-slate2-400">
               Shared {timeAgo(member.location_updated_at)}
               {member.distance_km !== null ? ` · ~${member.distance_km} km from you` : ""}
@@ -246,37 +246,29 @@ export default function FamilyPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 p-6 md:p-8">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-navy-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
-        <div className="relative">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
-              <Icon name="Users" className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-navy-300">Family Safety</span>
-            <span className="badge bg-safe-500/20 text-safe-200 text-[10px]">Live</span>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Your Family, Connected &amp; Safe</h1>
-          <p className="text-sm text-navy-300 max-w-md">
+      <div className="rounded-2xl bg-navy-900 p-6 md:p-8">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-semibold text-white mb-2">Family safety</h1>
+          <p className="text-sm text-navy-200 max-w-md">
             Add loved ones by phone. If they use Aasha Setu and accept, their live
             safety status shows here from their own check-ins.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-5">
-            <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10">
               <div className="w-2.5 h-2.5 rounded-full bg-safe-400" />
-              <span className="text-2xl font-bold text-white">{safeCount}</span>
-              <span className="text-xs text-navy-300 font-medium">Safe</span>
+              <span className="text-2xl font-semibold text-white tabular-nums">{safeCount}</span>
+              <span className="text-xs text-navy-200">Safe</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10">
               <div className="w-2.5 h-2.5 rounded-full bg-warn-400" />
-              <span className="text-2xl font-bold text-white">{awaitingCount}</span>
-              <span className="text-xs text-navy-300 font-medium">Awaiting</span>
+              <span className="text-2xl font-semibold text-white tabular-nums">{awaitingCount}</span>
+              <span className="text-xs text-navy-200">Awaiting</span>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/10">
               <div className="w-2.5 h-2.5 rounded-full bg-danger-400" />
-              <span className="text-2xl font-bold text-white">{helpCount}</span>
-              <span className="text-xs text-navy-300 font-medium">Need Help</span>
+              <span className="text-2xl font-semibold text-white tabular-nums">{helpCount}</span>
+              <span className="text-xs text-navy-200">Need help</span>
             </div>
           </div>
         </div>
@@ -337,7 +329,7 @@ export default function FamilyPage() {
       {/* Incoming requests */}
       {incoming.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-navy-900">Requests</h2>
+          <h2 className="text-lg font-semibold text-navy-900">Requests</h2>
           {incoming.map((r) => (
             <div
               key={r.id}
@@ -381,13 +373,13 @@ export default function FamilyPage() {
       {/* Your circle */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-navy-900">Your Circle</h2>
+          <h2 className="text-lg font-semibold text-navy-900">Your circle</h2>
           <button
             onClick={() => setShowForm((v) => !v)}
             className={`${SM_BTN} bg-navy-700 text-white hover:bg-navy-800`}
           >
             <Icon name={showForm ? "X" : "Plus"} className="w-4 h-4" />
-            {showForm ? "Cancel" : "Add Member"}
+            {showForm ? "Cancel" : "Add member"}
           </button>
         </div>
 
@@ -470,7 +462,7 @@ export default function FamilyPage() {
                 <div key={m.id} className={`card p-5 border ${sc.border}`}>
                   <div className="flex items-start gap-4">
                     <div className="relative flex-shrink-0">
-                      <div className="w-14 h-14 rounded-2xl bg-navy-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
+                      <div className="w-14 h-14 rounded-2xl bg-navy-600 flex items-center justify-center text-white font-semibold text-lg shadow-md">
                         {initialsOf(m.name)}
                       </div>
                       <div
@@ -481,7 +473,7 @@ export default function FamilyPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="text-base font-bold text-navy-900 truncate">{m.name}</p>
+                        <p className="text-base font-semibold text-navy-900 truncate">{m.name}</p>
                         {m.relation && (
                           <span className="text-xs text-slate2-400 font-medium">{m.relation}</span>
                         )}
@@ -569,8 +561,8 @@ export default function FamilyPage() {
       {/* Demo section */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-bold text-navy-900">Sample Family</h2>
-          <span className="badge bg-slate2-100 text-slate2-500 text-[10px]">For demonstration</span>
+          <h2 className="text-lg font-semibold text-navy-900">Sample family</h2>
+          <span className="badge bg-slate2-100 text-slate2-500 text-[11px]">For demonstration</span>
         </div>
         <p className="text-xs text-slate2-400 -mt-2">
           These profiles are illustrative only — they show what a fully-populated circle
@@ -588,7 +580,7 @@ export default function FamilyPage() {
               >
                 <div className="flex items-start gap-4">
                   <div className="relative flex-shrink-0">
-                    <div className={`relative w-14 h-14 overflow-hidden rounded-2xl ${m.avatarColor} flex items-center justify-center text-white font-bold text-lg shadow-md`}>
+                    <div className={`relative w-14 h-14 overflow-hidden rounded-2xl ${m.avatarColor} flex items-center justify-center text-white font-semibold text-lg shadow-md`}>
                       {m.initials}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -604,7 +596,7 @@ export default function FamilyPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-base font-bold text-navy-900 truncate">{m.name}</p>
+                      <p className="text-base font-semibold text-navy-900 truncate">{m.name}</p>
                       <span className="text-xs text-slate2-400 font-medium">{m.role}</span>
                     </div>
                     <div className={`inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-1 rounded-lg ${sc.bg}`}>

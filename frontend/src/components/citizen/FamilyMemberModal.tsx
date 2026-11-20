@@ -20,17 +20,17 @@ export function FamilyMemberModal({ member, onClose, onCheckIn }: FamilyMemberMo
   const sc = statusConfig[member.status];
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
-      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-slide-up" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-navy-950/50 animate-fade-in" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-slide-up" onClick={(e) => e.stopPropagation()}>
         <div className="px-6 pt-6 pb-5 bg-navy-900 text-white">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-navy-300">Family Member</span>
+            <span className="text-xs font-medium text-navy-300">Family member</span>
             <button onClick={onClose} className="text-navy-300 hover:text-white transition-colors">
               <Icon name="X" className="w-5 h-5" />
             </button>
           </div>
           <div className="flex items-center gap-4">
-            <div className={`relative w-16 h-16 overflow-hidden rounded-2xl ${member.avatarColor} flex items-center justify-center text-white text-xl font-bold shadow-lg ring-2 ring-white/20`}>
+            <div className={`relative w-16 h-16 overflow-hidden rounded-2xl ${member.avatarColor} flex items-center justify-center text-white text-xl font-semibold shadow-lg ring-2 ring-white/20`}>
               {member.initials}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -41,7 +41,7 @@ export function FamilyMemberModal({ member, onClose, onCheckIn }: FamilyMemberMo
               />
             </div>
             <div>
-              <h2 className="text-xl font-bold">{member.name}</h2>
+              <h2 className="text-xl font-semibold">{member.name}</h2>
               <p className="text-sm text-navy-300">{member.role}</p>
             </div>
           </div>
@@ -68,7 +68,7 @@ export function FamilyMemberModal({ member, onClose, onCheckIn }: FamilyMemberMo
             <div className="flex items-start gap-3 py-2.5">
               <Icon name="Phone" className="w-4 h-4 text-slate2-400 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-xs text-slate2-500">Emergency Contact</p>
+                <p className="text-xs text-slate2-500">Emergency contact</p>
                 <p className="text-sm font-medium text-navy-800">{member.contact}</p>
               </div>
             </div>

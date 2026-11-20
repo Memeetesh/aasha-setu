@@ -223,63 +223,46 @@ export default function DashboardPage() {
   const statCards = [
     {
       id: "active",
-      label: "Active SOS Signals",
+      label: "Active SOS signals",
       value: s ? String(s.active_incidents) : "—",
-      icon: "Siren",
-      color: "text-danger-600 bg-danger-50",
     },
     {
       id: "deployed",
-      label: "Teams Deployed",
+      label: "Teams deployed",
       value: String(activeDeployed),
-      icon: "LifeBuoy",
-      color: "text-navy-600 bg-navy-50",
     },
     {
       id: "resolved",
-      label: "Rescues Completed",
+      label: "Rescues completed",
       value: s ? String(s.rescues_completed) : "—",
-      icon: "CheckCircle2",
-      color: "text-safe-600 bg-safe-50",
     },
     {
       id: "shelters",
-      label: "Shelters Open",
+      label: "Shelters open",
       value: s ? String(s.shelters_available) : "—",
-      icon: "Home",
-      color: "text-warn-600 bg-warn-50",
     },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 py-5 space-y-5 animate-fade-in">
       {/* Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 p-5 md:p-6">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-navy-600/20 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4" />
-        <div className="absolute bottom-0 left-1/3 w-48 h-48 bg-danger-500/10 rounded-full blur-3xl translate-y-1/2" />
-        <div className="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="rounded-2xl bg-navy-900 p-6 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                <Icon name="ShieldAlert" className="w-5 h-5 text-danger-400" />
-              </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-navy-300">Command Center</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">Authority Dashboard</h1>
-            <p className="text-sm text-navy-300 mt-1.5">
-              Real-time SOS monitoring and emergency response coordination
+            <p className="text-sm text-navy-300 mb-2">Command centre</p>
+            <h1 className="text-2xl md:text-3xl font-semibold text-white">Authority dashboard</h1>
+            <p className="text-sm text-navy-200 mt-2">
+              Live SOS monitoring and response coordination
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm">
-              <span
-                className={`w-2 h-2 rounded-full ${connected ? "bg-safe-400 animate-pulse" : "bg-warn-400 animate-pulse"}`}
-              />
+            <div className="flex items-center gap-2 px-3 h-8 rounded-lg bg-white/10">
+              <span className={`w-2 h-2 rounded-full ${connected ? "bg-safe-400" : "bg-warn-400"}`} />
               <span className="text-white font-medium">{connected ? "Live" : "Reconnecting…"}</span>
             </div>
             <button
               onClick={refresh}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+              className="flex items-center gap-1.5 px-3 h-8 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
             >
               <Icon name="RefreshCw" className="w-3.5 h-3.5" />
               Refresh
@@ -297,14 +280,9 @@ export default function DashboardPage() {
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => (
-          <div key={stat.id} className={`card card-hover card-glow p-4 stagger-${Math.min(idx + 1, 4)}`}>
-            <div className="flex items-start justify-between mb-3">
-              <div className={`w-11 h-11 rounded-2xl ${stat.color} flex items-center justify-center`}>
-                <Icon name={stat.icon} className="w-5.5 h-5.5" />
-              </div>
-            </div>
-            <p className="text-2xl font-bold gradient-text">{stat.value}</p>
-            <p className="text-xs text-slate2-500 mt-1">{stat.label}</p>
+          <div key={stat.id} className={`card p-5 stagger-${Math.min(idx + 1, 4)}`}>
+            <p className="text-sm text-slate2-500">{stat.label}</p>
+            <p className={`text-3xl font-semibold tabular-nums mt-2 ${stat.id === "active" && stat.value !== "0" && stat.value !== "—" ? "text-danger-600" : "text-navy-900"}`}>{stat.value}</p>
           </div>
         ))}
       </div>
@@ -314,12 +292,10 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 card p-0 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate2-100">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center">
-                <Icon name="MapPinned" className="w-4 h-4 text-navy-600" />
-              </div>
-              <h2 className="text-sm font-bold text-navy-900">Live SOS Map</h2>
-              <span className="badge bg-danger-100 text-danger-700 ml-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-danger-500 animate-pulse" />
+              <Icon name="MapPinned" className="w-4 h-4 text-slate2-500" strokeWidth={1.75} />
+              <h2 className="text-sm font-semibold text-navy-900">Live SOS map</h2>
+              <span className="badge bg-danger-50 text-danger-700 ml-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-danger-500" />
                 {pendingCount} pending
               </span>
             </div>
@@ -334,7 +310,7 @@ export default function DashboardPage() {
                 <button
                   key={layer.id}
                   onClick={() => setMapLayer(layer.id)}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
                     mapLayer === layer.id ? "bg-white text-navy-700 shadow-sm" : "text-slate2-500 hover:text-navy-600"
                   }`}
                 >
@@ -361,7 +337,7 @@ export default function DashboardPage() {
               focus={mapFocus}
             />
 
-            <div className="absolute bottom-3 left-3 glass rounded-xl px-3 py-2.5 border border-slate2-100 space-y-1.5 z-[5] pointer-events-none">
+            <div className="absolute bottom-3 left-3 bg-white rounded-xl px-3 py-2.5 border border-slate2-100 space-y-1.5 z-[5] pointer-events-none">
               <div className="flex items-center gap-2 text-[11px] font-medium text-navy-700">
                 <span className="w-2.5 h-2.5 rounded-full bg-danger-600" /> Critical SOS
               </div>
@@ -377,9 +353,9 @@ export default function DashboardPage() {
             </div>
 
             {selectedZone && (
-              <div className="absolute top-3 right-3 w-64 rounded-xl bg-white/95 backdrop-blur-sm shadow-[var(--shadow-card-lg)] border border-slate2-100 p-3.5 text-xs z-[5]">
+              <div className="absolute top-3 right-3 w-64 rounded-xl bg-white shadow-[var(--shadow-card-lg)] border border-slate2-100 p-3.5 text-xs z-[5]">
                 <div className="mb-1.5 flex items-center justify-between">
-                  <span className="font-bold text-navy-900">
+                  <span className="font-semibold text-navy-900">
                     Risk {selectedZone.risk_score} — {selectedZone.risk_category.replace("_", " ")}
                   </span>
                   <button onClick={() => setSelectedZone(null)} className="text-slate2-400 hover:text-navy-700">
@@ -410,10 +386,8 @@ export default function DashboardPage() {
           <div className="px-5 py-3.5 border-b border-slate2-100">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-danger-100 flex items-center justify-center">
-                  <Icon name="Siren" className="w-4 h-4 text-danger-600" />
-                </div>
-                <h2 className="text-sm font-bold text-navy-900">SOS Signal Feed</h2>
+                <Icon name="Siren" className="w-4 h-4 text-slate2-500" strokeWidth={1.75} />
+                <h2 className="text-sm font-semibold text-navy-900">SOS signal feed</h2>
               </div>
               <span className="text-xs text-slate2-400">{filteredIncidents.length} signals</span>
             </div>
@@ -429,7 +403,7 @@ export default function DashboardPage() {
                 <button
                   key={f.id}
                   onClick={() => setFilter(f.id)}
-                  className={`flex-1 px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
+                  className={`flex-1 px-1.5 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors ${
                     filter === f.id ? "bg-navy-700 text-white" : "bg-slate2-100 text-slate2-500 hover:bg-slate2-200"
                   }`}
                 >
@@ -460,16 +434,13 @@ export default function DashboardPage() {
                     <div className="flex items-start gap-3">
                       <div className="relative mt-1">
                         <span className={`block w-2.5 h-2.5 rounded-full ${pc.dot}`} />
-                        {pc.pulse && status === "pending" && (
-                          <span className={`absolute inset-0 rounded-full ${pc.dot} animate-ping opacity-60`} />
-                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2 mb-1">
-                          <p className="text-sm font-bold text-navy-900 truncate">
+                          <p className="text-sm font-semibold text-navy-900 truncate">
                             {incident.reporter_name ?? `Signal #${incident.id}`}
                           </p>
-                          <span className="text-[10px] text-slate2-400 flex-shrink-0">
+                          <span className="text-[11px] font-mono tabular-nums text-slate2-400 flex-shrink-0">
                             {new Date(incident.created_at).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
@@ -480,9 +451,9 @@ export default function DashboardPage() {
                           {incident.latitude.toFixed(4)}, {incident.longitude.toFixed(4)}
                         </p>
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className={`badge ${pc.badge} text-[10px] py-0.5`}>{pc.label}</span>
-                          <span className={`badge ${sc.badge} text-[10px] py-0.5`}>{sc.label}</span>
-                          <span className="text-[10px] text-slate2-400 capitalize">{incident.type}</span>
+                          <span className={`badge ${pc.badge} text-[11px] py-0.5`}>{pc.label}</span>
+                          <span className={`badge ${sc.badge} text-[11px] py-0.5`}>{sc.label}</span>
+                          <span className="text-[11px] text-slate2-400 capitalize">{incident.type}</span>
                         </div>
                       </div>
                     </div>
@@ -512,7 +483,7 @@ export default function DashboardPage() {
                   <Icon name="FileText" className="w-5.5 h-5.5 text-navy-600" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold text-navy-900">Signal Details — #{selectedIncident.id}</h2>
+                  <h2 className="text-sm font-semibold text-navy-900">Signal #{selectedIncident.id}</h2>
                   <p className="text-xs text-slate2-500">
                     Received {new Date(selectedIncident.created_at).toLocaleString()}
                   </p>
@@ -555,7 +526,7 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-slate2-50">
                 <Icon name="Users" className="w-4 h-4 text-slate2-400 flex-shrink-0" />
                 <div>
-                  <p className="text-[11px] text-slate2-400">People Affected</p>
+                  <p className="text-[11px] text-slate2-400">People affected</p>
                   <p className="text-sm font-semibold text-navy-800">{selectedIncident.people_affected}</p>
                 </div>
               </div>
@@ -586,7 +557,7 @@ export default function DashboardPage() {
                     className="btn bg-navy-700 text-white hover:bg-navy-800 disabled:opacity-60"
                   >
                     <Icon name="CheckCircle2" className="w-4 h-4" />
-                    Verify Signal
+                    Verify signal
                   </button>
                   <button
                     onClick={() => handleVerify(selectedIncident.id, "rejected")}
@@ -611,7 +582,7 @@ export default function DashboardPage() {
               {selectedIncident.reporter_phone && (
                 <a href={`tel:${selectedIncident.reporter_phone}`} className="btn-secondary">
                   <Icon name="Phone" className="w-4 h-4" />
-                  Call Caller
+                  Call caller
                 </a>
               )}
               {selectedIncident.status !== "resolved" && (
@@ -621,7 +592,7 @@ export default function DashboardPage() {
                   className="btn bg-safe-600 text-white hover:bg-safe-700 disabled:opacity-60"
                 >
                   <Icon name="CheckCircle2" className="w-4 h-4" />
-                  Mark Resolved
+                  Mark resolved
                 </button>
               )}
               {selectedIncident.status === "resolved" && (
@@ -637,10 +608,8 @@ export default function DashboardPage() {
         {/* Rescue Teams */}
         <div className="card p-5">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center">
-              <Icon name="LifeBuoy" className="w-4 h-4 text-navy-600" />
-            </div>
-            <h2 className="text-sm font-bold text-navy-900">Rescue Teams</h2>
+            <Icon name="LifeBuoy" className="w-4 h-4 text-slate2-500" strokeWidth={1.75} />
+            <h2 className="text-sm font-semibold text-navy-900">Rescue teams</h2>
           </div>
           <div className="space-y-2.5 max-h-[340px] overflow-y-auto">
             {responders.length === 0 ? (
@@ -660,12 +629,12 @@ export default function DashboardPage() {
                       <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ${tc.dot} ring-2 ring-slate2-50`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-navy-900 truncate">{team.name}</p>
+                      <p className="text-sm font-semibold text-navy-900 truncate">{team.name}</p>
                       <p className="text-[11px] text-slate2-500">
                         {team.team ?? team.vehicle ?? "team"} · capacity {team.capacity}
                       </p>
                     </div>
-                    <span className={`badge ${tc.badge} text-[10px] py-0.5`}>{tc.label}</span>
+                    <span className={`badge ${tc.badge} text-[11px] py-0.5`}>{tc.label}</span>
                   </div>
                 );
               })
@@ -679,10 +648,8 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 card p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-safe-100 flex items-center justify-center">
-                <Icon name="Home" className="w-4 h-4 text-safe-600" />
-              </div>
-              <h2 className="text-sm font-bold text-navy-900">Shelter Occupancy</h2>
+              <Icon name="Home" className="w-4 h-4 text-slate2-500" strokeWidth={1.75} />
+              <h2 className="text-sm font-semibold text-navy-900">Shelter occupancy</h2>
             </div>
           </div>
           {shelters.length === 0 ? (
@@ -695,14 +662,14 @@ export default function DashboardPage() {
                 return (
                   <div key={sh.id} className="px-4 py-3.5 rounded-xl border border-slate2-100 hover:border-slate2-200 transition-colors">
                     <div className="flex items-center justify-between mb-1.5">
-                      <p className="text-sm font-bold text-navy-900 truncate">{sh.name}</p>
-                      <span className="text-xs font-bold text-slate2-600 flex-shrink-0">{pct}%</span>
+                      <p className="text-sm font-semibold text-navy-900 truncate">{sh.name}</p>
+                      <span className="text-xs font-medium font-mono text-slate2-600 flex-shrink-0">{pct}%</span>
                     </div>
                     <p className="text-[11px] text-slate2-400 mb-2.5">
                       {sh.occupied}/{sh.capacity} people · {sh.status}
                     </p>
                     <div className="h-2 rounded-full bg-slate2-100 overflow-hidden">
-                      <div className={`h-full rounded-full ${barColor} transition-all duration-500`} style={{ width: `${pct}%` }} />
+                      <div className={`h-full rounded-full ${barColor}`} style={{ width: `${pct}%` }} />
                     </div>
                   </div>
                 );
@@ -713,14 +680,12 @@ export default function DashboardPage() {
 
         <div className="card p-5">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-lg bg-danger-100 flex items-center justify-center">
-              <Icon name="Activity" className="w-4 h-4 text-danger-600" />
-            </div>
-            <h2 className="text-sm font-bold text-navy-900">SOS Trend (12h)</h2>
+            <Icon name="Activity" className="w-4 h-4 text-slate2-500" strokeWidth={1.75} />
+            <h2 className="text-sm font-semibold text-navy-900">SOS trend · 12h</h2>
           </div>
           <div className="mb-3">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl font-bold gradient-text">{lastHour}</span>
+              <span className="text-3xl font-semibold text-navy-900 tabular-nums">{lastHour}</span>
               <span className="text-xs text-slate2-500">signals in last hour</span>
             </div>
             {trendDelta !== null && (
@@ -742,7 +707,7 @@ export default function DashboardPage() {
       <div className="rounded-2xl bg-navy-950 overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-800 flex items-center gap-2">
           <Icon name="Settings" className="w-4 h-4 text-slate-400" />
-          <h2 className="text-sm font-bold text-white">Operator Tools</h2>
+          <h2 className="text-sm font-semibold text-white">Operator tools</h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
           <div>
@@ -766,9 +731,7 @@ export default function DashboardPage() {
             )}
             <div className="border-t border-slate-800 px-4 py-4">
               <div className="mb-1 flex items-center justify-between">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
-                  AI Situation Summary
-                </h3>
+                <h3 className="text-sm font-medium text-slate-300">AI situation summary</h3>
                 <span className="badge bg-slate-700/50 text-slate-200">Later phase</span>
               </div>
               <p className="text-sm text-slate-500">

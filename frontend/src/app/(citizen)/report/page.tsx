@@ -61,7 +61,7 @@ export default function ReportPage() {
         <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-safe-100 text-safe-600">
           <Icon name="CheckCircle2" className="w-7 h-7" />
         </div>
-        <h1 className="text-xl font-bold text-navy-900">Report submitted</h1>
+        <h1 className="text-xl font-semibold text-navy-900">Report submitted</h1>
         <p className="mt-2 text-sm text-slate2-600">
           Incident #{result.id} logged as <span className="font-semibold">{severity}</span> severity, status{" "}
           <span className="font-mono">{status}</span>.
@@ -87,7 +87,7 @@ export default function ReportPage() {
         <div className="w-10 h-10 rounded-xl bg-warn-50 flex items-center justify-center">
           <Icon name="AlertTriangle" className="w-5 h-5 text-warn-600" />
         </div>
-        <h1 className="text-xl font-bold text-navy-900">Report an Incident</h1>
+        <h1 className="text-xl font-semibold text-navy-900">Report an Incident</h1>
       </div>
       <p className="text-sm text-slate2-500">
         For non-emergencies — e.g. a flooded road with no one in danger. Use{" "}

@@ -71,8 +71,8 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-fade-in" onClick={sent ? undefined : onClose}>
-      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-slide-up" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-navy-950/50 animate-fade-in" onClick={sent ? undefined : onClose}>
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-slide-up" onClick={(e) => e.stopPropagation()}>
         {!sent ? (
           <>
             <div className="flex items-center justify-between mb-6">
@@ -80,7 +80,7 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
                 <div className="w-10 h-10 rounded-xl bg-danger-50 flex items-center justify-center">
                   <Icon name="Siren" className="w-5 h-5 text-danger-600" />
                 </div>
-                <h2 className="text-xl font-bold text-navy-900">Emergency SOS</h2>
+                <h2 className="text-xl font-semibold text-navy-900">Emergency SOS</h2>
               </div>
               <button onClick={onClose} className="text-slate2-400 hover:text-slate2-600 transition-colors">
                 <Icon name="X" className="w-5 h-5" />
@@ -105,7 +105,7 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
                 onTouchStart={startHold}
                 onTouchEnd={stopHold}
                 disabled={location.status !== "ok"}
-                className="relative w-40 h-40 rounded-full bg-danger-600 text-white flex flex-col items-center justify-center shadow-lg shadow-danger-600/30 active:scale-95 transition-transform no-tap-highlight select-none disabled:opacity-40 disabled:cursor-not-allowed"
+                className="relative w-40 h-40 rounded-full bg-danger-600 text-white flex flex-col items-center justify-center ring-8 ring-danger-100 active:scale-[0.97] transition-transform no-tap-highlight select-none disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {holding && (
                   <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
@@ -117,7 +117,7 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
                   </svg>
                 )}
                 <Icon name="Siren" className="w-10 h-10 mb-1 relative z-10" />
-                <span className="text-lg font-bold relative z-10">Hold for SOS</span>
+                <span className="text-lg font-semibold relative z-10">Hold for SOS</span>
               </button>
               <p className="text-xs text-slate2-500">Hold for 3 seconds to confirm</p>
             </div>
@@ -132,7 +132,7 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
             <div className="w-20 h-20 rounded-full bg-danger-100 flex items-center justify-center mb-4">
               <Icon name="AlertCircle" className="w-10 h-10 text-danger-600" />
             </div>
-            <h2 className="text-xl font-bold text-navy-900 mb-2">SOS not sent</h2>
+            <h2 className="text-xl font-semibold text-navy-900 mb-2">SOS not sent</h2>
             <p className="text-sm text-slate2-600 mb-6">{error}</p>
             <button onClick={onClose} className="btn-secondary w-full">Close</button>
           </div>
@@ -141,13 +141,13 @@ export function SOSModal({ onClose, onSent, token, location }: SOSModalProps) {
             <div className="relative mb-6">
               <div className="absolute inset-0 rounded-full bg-danger-200 animate-pulse-ring" />
               <div className="absolute inset-0 rounded-full bg-danger-300 animate-pulse-ring" style={{ animationDelay: "0.3s" }} />
-              <div className="relative w-24 h-24 rounded-full bg-danger-600 flex items-center justify-center shadow-lg">
+              <div className="relative w-24 h-24 rounded-full bg-danger-600 flex items-center justify-center">
                 <Icon name="Send" className="w-10 h-10 text-white" />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-navy-900 mb-2">Sending SOS Alert</h2>
+            <h2 className="text-xl font-semibold text-navy-900 mb-2">Sending SOS alert</h2>
             <p className="text-sm text-slate2-600 mb-4">Notifying responders with your location…</p>
-            {countdown !== null && <div className="text-3xl font-bold text-danger-600">{countdown}</div>}
+            {countdown !== null && <div className="text-3xl font-semibold text-danger-600">{countdown}</div>}
           </div>
         )}
       </div>

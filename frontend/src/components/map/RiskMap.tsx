@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import {
   Map as MapLibreMap,
   NavigationControl,
@@ -459,8 +460,8 @@ export function RiskMap({
 
       {tileWarning && !mapError && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 z-10 max-w-xs w-[calc(100%-1rem)] pointer-events-none">
-          <div className="flex items-start gap-2 rounded-xl bg-warn-900/90 backdrop-blur-sm border border-warn-700/60 px-3 py-2 shadow-lg">
-            <span className="mt-0.5 text-warn-400 text-sm flex-shrink-0">⚠</span>
+          <div className="flex items-start gap-2 rounded-lg bg-warn-900 border border-warn-700/60 px-3 py-2">
+            <AlertTriangle className="mt-0.5 w-3.5 h-3.5 text-warn-400 flex-shrink-0" strokeWidth={1.75} aria-hidden />
             <p className="text-[11px] leading-snug text-warn-200">{tileWarning}</p>
           </div>
         </div>

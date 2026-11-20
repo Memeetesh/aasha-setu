@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Icon, getRiskColor, getRiskLabel, getRiskDot } from "@/components/citizen/Icon";
 import { LineChart } from "@/components/citizen/Charts";
 import { riskCards as mockRiskCards, riverCourseData } from "@/data/citizen-mock";
-import { useAuth } from "@/lib/auth-context";
 import { useLocation } from "@/hooks/useLocation";
 import {
   useAlerts,
@@ -55,7 +54,6 @@ function toCitizenLevel(category: string): CitizenRiskLevel {
 }
 
 export default function HomePage() {
-  const { user } = useAuth();
   const location = useLocation();
 
   // Realtime (src/lib/realtime.tsx) invalidates these on `risk.updated` /
@@ -160,24 +158,18 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 p-6 md:p-8">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-navy-600/20 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4" />
-        <div className="absolute bottom-0 left-1/3 w-48 h-48 bg-amber-500/8 rounded-full blur-3xl translate-y-1/2" />
-        <div className="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="rounded-2xl bg-navy-900 p-6 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                <Icon name="Sunrise" className="w-4.5 h-4.5 text-amber-400" />
-              </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-navy-300">Stay Informed. Stay Prepared. Stay Safe.</span>
+            <h1 className="text-2xl md:text-3xl font-semibold text-white">Your area today</h1>
+            <p className="text-sm text-navy-200 mt-2">Live forecasts, alerts and shelters for where you are</p>
+          </div>
+          {riskMapQuery.dataUpdatedAt > 0 && (
+            <div className="flex items-center gap-2 text-xs text-navy-200 bg-white/10 px-3 py-2 rounded-lg self-start sm:self-end">
+              <Icon name="Clock" className="w-3.5 h-3.5" />
+              <span>Updated <span className="font-mono">{relativeTime(riskMapQuery.dataUpdatedAt)}</span></span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">Welcome back, {user?.name?.split(" ")[0] ?? "there"}!</h1>
-            <p className="text-sm text-navy-300 mt-1.5">Here&apos;s what&apos;s happening in and around your area.</p>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-navy-300 bg-white/5 backdrop-blur-sm px-3 py-2 rounded-xl self-start sm:self-end">
-            <Icon name="Clock" className="w-3.5 h-3.5" />
-            <span>Last updated: {relativeTime(riskMapQuery.dataUpdatedAt)}</span>
-          </div>
+          )}
         </div>
       </div>
 
@@ -185,36 +177,32 @@ export default function HomePage() {
       {activeAlert && (
         <Link
           href="/support"
-          className="w-full group relative overflow-hidden rounded-2xl bg-gradient-to-r from-danger-500 to-danger-600 p-px text-left transition-all hover:scale-[1.01] active:scale-[0.99] block"
+          className="w-full group block rounded-2xl border border-danger-200 bg-danger-50 hover:bg-danger-100/60 transition-colors text-left"
         >
-          <div className="relative rounded-2xl bg-gradient-to-r from-danger-50 to-danger-100 px-5 py-4 flex items-center gap-4">
-            <div className="relative w-12 h-12 rounded-2xl bg-danger-500 flex items-center justify-center shadow-lg shadow-danger-500/30 flex-shrink-0">
-              <Icon name="AlertTriangle" className="w-6 h-6 text-white" />
+          <div className="px-5 py-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-danger-600 flex items-center justify-center flex-shrink-0">
+              <Icon name="AlertTriangle" className="w-5 h-5 text-white" />
             </div>
-            <div className="relative flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="badge bg-danger-600 text-white text-[10px] py-0.5 uppercase">
-                  {activeAlert.severity.replace("_", " ")}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="badge bg-white text-danger-700">
+                  <span className="w-1.5 h-1.5 rounded-full bg-danger-600" />
+                  {activeAlert.severity.charAt(0).toUpperCase() + activeAlert.severity.slice(1).replace("_", " ")}
                 </span>
-                <span className="text-xs font-medium text-danger-600">
+                <span className="text-xs text-danger-700/80">
                   {alertSourceLabel(activeAlert.source)} · {alertRelativeTime(activeAlert.issued_at)}
                 </span>
               </div>
-              <p className="text-sm font-bold text-danger-700 line-clamp-2">{activeAlert.message}</p>
-              <p className="text-xs text-danger-600/80 mt-0.5">Tap to see all authority messages</p>
+              <p className="text-sm font-semibold text-danger-800 line-clamp-2">{activeAlert.message}</p>
+              <p className="text-xs text-danger-700/80 mt-1">See all authority messages</p>
             </div>
-            <Icon name="ChevronRight" className="w-5 h-5 text-danger-400 group-hover:translate-x-1 transition-transform flex-shrink-0 relative" />
+            <Icon name="ChevronRight" className="w-5 h-5 text-danger-400 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
           </div>
         </Link>
       )}
 
       <section>
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center">
-            <Icon name="Activity" className="w-4 h-4 text-navy-600" />
-          </div>
-          <h2 className="text-lg font-bold text-navy-900">Risk &amp; Environmental Overview</h2>
-        </div>
+        <h2 className="text-base font-semibold text-navy-900 mb-3">Risk and forecasts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {riskCards.map((card, idx) => {
             const rc = getRiskColor(card.level);
@@ -235,10 +223,10 @@ export default function HomePage() {
                     : "risk score";
             }
             return (
-              <div key={card.id} className={`card card-hover card-glow p-5 group stagger-${Math.min(idx + 1, 4)}`}>
+              <div key={card.id} className={`card p-5 stagger-${Math.min(idx + 1, 4)}`}>
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-2xl ${rc.bg} flex items-center justify-center transition-transform group-hover:scale-110`}>
-                    <Icon name={card.icon} className={`w-6 h-6 ${rc.text}`} strokeWidth={2} />
+                  <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                    <Icon name={card.icon} className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
                   </div>
                   <span className={`badge ${rc.badge}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${getRiskDot(card.level)}`} />
@@ -247,19 +235,19 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-sm font-semibold text-navy-900 mb-2 flex items-center gap-1.5">
                   {card.title}
-                  {isLive && <span className="text-[9px] font-bold text-safe-600 uppercase">Live</span>}
+                  {isLive && <span className="text-xs font-normal font-mono text-slate2-400">live</span>}
                 </h3>
                 <div className="flex items-baseline gap-1.5 mb-3">
                   {rainfallLive ? (
                     <>
-                      <span className="text-3xl font-bold gradient-text">{rainfallLive.rain_24h_mm}</span>
+                      <span className="text-3xl font-semibold text-navy-900 tabular-nums">{rainfallLive.rain_24h_mm}</span>
                       <span className="text-xs text-slate2-500">
                         mm next 24h · {rainfallLive.probability}% chance
                       </span>
                     </>
                   ) : cycloneLive ? (
                     <>
-                      <span className="text-3xl font-bold gradient-text">
+                      <span className="text-3xl font-semibold text-navy-900 tabular-nums">
                         {Math.round(cycloneLive.peak_gust_kmh)}
                       </span>
                       <span className="text-xs text-slate2-500">
@@ -270,7 +258,7 @@ export default function HomePage() {
                     </>
                   ) : landslideLive ? (
                     <>
-                      <span className="text-3xl font-bold gradient-text">
+                      <span className="text-3xl font-semibold text-navy-900 tabular-nums">
                         {landslideLive.landslide_risk_score}%
                       </span>
                       <span className="text-xs text-slate2-500">
@@ -283,7 +271,7 @@ export default function HomePage() {
                     </>
                   ) : (
                     <>
-                      <span className="text-3xl font-bold gradient-text">{card.probability}%</span>
+                      <span className="text-3xl font-semibold text-navy-900 tabular-nums">{card.probability}%</span>
                       <span className="text-xs text-slate2-500">{isLive ? metric : "chance"}</span>
                     </>
                   )}
@@ -291,7 +279,7 @@ export default function HomePage() {
                 <div className="mb-3">
                   <LineChart data={card.trend} color={chartColor} height={44} />
                 </div>
-                <p className="text-xs font-medium text-slate2-600 italic">&ldquo;{card.recommendation}&rdquo;</p>
+                <p className="text-xs text-slate2-600">{card.recommendation}</p>
               </div>
             );
           })}
@@ -299,12 +287,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center">
-            <Icon name="Home" className="w-4 h-4 text-navy-600" />
-          </div>
-          <h2 className="text-lg font-bold text-navy-900">Nearby Shelters</h2>
-        </div>
+        <h2 className="text-base font-semibold text-navy-900 mb-3">Nearby shelters</h2>
         {appSheltersNear.length === 0 && osmShelters.length === 0 ? (
           <div className="card p-6 text-sm text-slate2-500">
             {location.status !== "ok"
@@ -320,11 +303,11 @@ export default function HomePage() {
                 {appSheltersNear.map((s) => (
                   <div key={s.id} className="card p-5">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-sm font-bold text-navy-900">{s.name}</p>
+                      <p className="text-sm font-semibold text-navy-900">{s.name}</p>
                       <span className="text-xs font-mono text-slate2-500">{s.distance_km.toFixed(1)} km</span>
                     </div>
                     <p className="text-xs text-slate2-500">
-                      {s.occupied}/{s.capacity} occupied · {s.accessibility ?? "accessibility unknown"} · {s.status}
+                      {s.occupied}/{s.capacity} occupied · {s.accessibility?.replace(/_/g, " ") ?? "accessibility unknown"} · {s.status}
                     </p>
                   </div>
                 ))}
@@ -332,9 +315,7 @@ export default function HomePage() {
             )}
             {osmShelters.length > 0 && (
               <div>
-                <p className="text-xs font-semibold text-slate2-400 uppercase mb-2">
-                  Other nearby shelters · OpenStreetMap
-                </p>
+                <p className="text-xs text-slate2-500 mb-2">Other nearby shelters · OpenStreetMap</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {osmShelters.map((p, i) => (
                     <a
@@ -345,7 +326,7 @@ export default function HomePage() {
                       className="card card-hover p-5 block"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <p className="text-sm font-bold text-navy-900">{p.name}</p>
+                        <p className="text-sm font-semibold text-navy-900">{p.name}</p>
                         <span className="text-xs font-mono text-slate2-500">{p.distance_km.toFixed(1)} km</span>
                       </div>
                       <p className="text-xs text-slate2-500">{p.address ?? "Tap to open in maps"}</p>
@@ -359,12 +340,9 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center">
-            <Icon name="Waves" className="w-4 h-4 text-navy-600" />
-          </div>
-          <h2 className="text-lg font-bold text-navy-900">River Discharge</h2>
-          <span className="text-[10px] font-semibold text-slate2-400 uppercase">GloFAS forecast</span>
+        <div className="flex items-baseline gap-2 mb-3">
+          <h2 className="text-base font-semibold text-navy-900">River discharge</h2>
+          <span className="text-xs text-slate2-500">GloFAS forecast</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {location.status !== "ok" ? (
@@ -390,8 +368,8 @@ export default function HomePage() {
                 <div className="card p-5">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-navy-50 flex items-center justify-center">
-                        <Icon name="Waves" className="w-6 h-6 text-navy-600" />
+                      <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                        <Icon name="Waves" className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
                       </div>
                       <div>
                         <h3 className="text-sm font-semibold text-navy-900">Nearest river reach</h3>
@@ -406,7 +384,7 @@ export default function HomePage() {
                   <div className="flex items-end justify-between mb-4">
                     <div>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold gradient-text">
+                        <span className="text-4xl font-semibold text-navy-900 tabular-nums">
                           {Math.round(flood.current_discharge_m3s).toLocaleString()}
                         </span>
                         <span className="text-lg text-slate2-400">m³/s</span>
@@ -430,9 +408,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <LineChart data={flood.trend} color="#5a7bb8" height={70} showArea showDots />
-                  <p className="mt-3 text-xs font-medium text-slate2-600 italic">
-                    &ldquo;{flood.recommendation}&rdquo;
-                  </p>
+                  <p className="mt-3 text-xs text-slate2-600">{flood.recommendation}</p>
                 </div>
               );
             })()
@@ -441,30 +417,30 @@ export default function HomePage() {
           <div className="card p-5">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-navy-50 flex items-center justify-center">
-                  <Icon name="MapPinned" className="w-6 h-6 text-navy-600" />
+                <div className="w-10 h-10 rounded-xl bg-slate2-100 flex items-center justify-center">
+                  <Icon name="MapPinned" className="w-5 h-5 text-slate2-600" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-navy-900">River Course Change</h3>
+                  <h3 className="text-sm font-semibold text-navy-900">River course change</h3>
                   <p className="text-xs text-slate2-500 flex items-center gap-1.5">
                     Satellite course-shift monitoring
-                    <span className="text-[10px] font-semibold text-slate2-400 uppercase">· Sample data</span>
+                    <span className="text-slate2-400">· sample data</span>
                   </p>
                 </div>
               </div>
-              <span className="badge bg-safe-100 text-safe-700">
+              <span className="badge bg-slate2-100 text-slate2-700">
                 <span className="w-1.5 h-1.5 rounded-full bg-safe-500" />
                 {riverCourseData.detail}
               </span>
             </div>
-            <div className="relative h-36 rounded-xl bg-gradient-to-br from-navy-50 to-slate2-50 map-grid overflow-hidden mb-4 border border-slate2-100">
+            <div className="relative h-36 rounded-xl bg-slate2-50 map-grid overflow-hidden mb-4 border border-slate2-100">
               <svg viewBox="0 0 200 100" className="w-full h-full">
                 <path d="M 20 15 Q 60 30 100 50 Q 140 70 180 85" stroke="#5a7bb8" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.6" />
                 <circle cx="60" cy="30" r="3" fill="#22c55e" />
                 <circle cx="140" cy="70" r="3" fill="#22c55e" />
                 <circle cx="100" cy="50" r="3" fill="#22c55e" />
               </svg>
-              <div className="absolute bottom-2 right-2 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg glass border border-slate2-100">
+              <div className="absolute bottom-2 right-2 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white border border-slate2-100">
                 <Icon name="CheckCircle2" className="w-3.5 h-3.5 text-safe-500" />
                 <span className="text-[11px] font-medium text-navy-700">No change detected</span>
               </div>

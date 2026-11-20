@@ -10,22 +10,30 @@ const MEDIA_BASE = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/ap
   ""
 );
 
+// Same severity marker as the home page: quiet tag, colour only in the dot.
 const SEVERITY_BADGE: Record<SeverityLevel, string> = {
-  low: "bg-safe-100 text-safe-700",
-  moderate: "bg-warn-100 text-warn-700",
-  high: "bg-danger-100 text-danger-700",
-  very_high: "bg-danger-600 text-white",
-  critical: "bg-danger-600 text-white",
+  low: "bg-slate2-100 text-slate2-700",
+  moderate: "bg-slate2-100 text-slate2-700",
+  high: "bg-danger-50 text-danger-700",
+  very_high: "bg-danger-50 text-danger-700",
+  critical: "bg-danger-50 text-danger-700",
+};
+const SEVERITY_DOT: Record<SeverityLevel, string> = {
+  low: "bg-safe-500",
+  moderate: "bg-warn-500",
+  high: "bg-danger-500",
+  very_high: "bg-danger-600",
+  critical: "bg-danger-600",
 };
 
-const STATUS_BADGE: Record<IncidentStatus, string> = {
-  reported: "bg-warn-100 text-warn-700",
-  ai_verified: "bg-warn-100 text-warn-700",
-  human_review: "bg-warn-100 text-warn-700",
-  verified: "bg-safe-100 text-safe-700",
-  rejected: "bg-slate2-100 text-slate2-500",
-  in_progress: "bg-navy-100 text-navy-700",
-  resolved: "bg-safe-100 text-safe-700",
+const STATUS_TEXT: Record<IncidentStatus, string> = {
+  reported: "text-slate2-500",
+  ai_verified: "text-slate2-500",
+  human_review: "text-slate2-500",
+  verified: "text-safe-700",
+  rejected: "text-slate2-400",
+  in_progress: "text-navy-700",
+  resolved: "text-safe-700",
 };
 
 const STATUS_LABEL: Record<IncidentStatus, string> = {
@@ -47,7 +55,7 @@ export default function MyReportsPage() {
         <div className="w-10 h-10 rounded-xl bg-navy-100 flex items-center justify-center">
           <Icon name="FileText" className="w-5 h-5 text-navy-600" />
         </div>
-        <h1 className="text-xl font-bold text-navy-900">My Reports</h1>
+        <h1 className="text-xl font-semibold text-navy-900">My reports</h1>
       </div>
       <p className="text-sm text-slate2-500">
         Everything you&apos;ve reported through SOS or the incident form. Status updates live as
@@ -84,7 +92,7 @@ export default function MyReportsPage() {
             <div key={incident.id} className="card p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-navy-900">
+                  <p className="text-sm font-semibold text-navy-900">
                     #{incident.id} · <span className="capitalize">{incident.type}</span>
                   </p>
                   <p className="mt-0.5 text-xs text-slate2-500">
@@ -94,9 +102,10 @@ export default function MyReportsPage() {
                 </div>
                 <div className="flex flex-shrink-0 flex-col items-end gap-1">
                   <span className={`badge ${SEVERITY_BADGE[incident.severity]}`}>
-                    {incident.severity.replace("_", " ")}
+                    <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_DOT[incident.severity]}`} />
+                    {incident.severity.charAt(0).toUpperCase() + incident.severity.slice(1).replace("_", " ")}
                   </span>
-                  <span className={`badge ${STATUS_BADGE[incident.status]}`}>
+                  <span className={`text-xs ${STATUS_TEXT[incident.status]}`}>
                     {STATUS_LABEL[incident.status]}
                   </span>
                 </div>

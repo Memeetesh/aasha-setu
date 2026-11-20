@@ -158,29 +158,23 @@ export default function EmergencyPage() {
 
   return (
     <div className="space-y-5 animate-fade-in">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-danger-600 via-danger-700 to-danger-800 p-5 md:p-6 text-white">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-danger-400/20 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4" />
-        <div className="relative">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
-              <Icon name="Siren" className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold">Emergency Assistance</h1>
-              <p className="text-sm text-danger-100">Immediate help is available. Stay calm.</p>
-            </div>
+      <div className="rounded-2xl bg-navy-900 p-6 md:p-8 text-white">
+        <div>
+          <div className="mb-4">
+            <h1 className="text-2xl md:text-3xl font-semibold">Emergency assistance</h1>
+            <p className="text-sm text-navy-200 mt-2">Help is available. Stay calm and share your location</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
             {location.status === "ok" ? (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm">
-                <Icon name="MapPin" className="w-4 h-4" />
-                <span className="text-sm font-medium">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10">
+                <Icon name="MapPin" className="w-4 h-4 text-navy-200" />
+                <span className="text-sm font-mono tabular-nums">
                   {location.lat.toFixed(4)}, {location.lon.toFixed(4)}
                 </span>
               </div>
             ) : (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-warn-500/30 backdrop-blur-sm border border-warn-300/30">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-warn-500/20 border border-warn-300/30">
                 <Icon name="MapPin" className="w-4 h-4" />
                 <span className="text-sm font-medium">
                   {location.status === "loading" ? "Getting location…" : "Location unavailable"}
@@ -194,13 +188,11 @@ export default function EmergencyPage() {
       <div className="flex flex-col items-center py-6 md:py-8">
         <button
           onClick={() => setSosOpen(true)}
-          className="relative w-48 h-48 md:w-56 md:h-56 rounded-full bg-danger-600 text-white flex flex-col items-center justify-center shadow-2xl shadow-danger-600/40 hover:scale-105 active:scale-95 transition-all duration-200 no-tap-highlight pulse-glow"
+          className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-danger-600 text-white flex flex-col items-center justify-center ring-[12px] ring-danger-100 hover:bg-danger-700 active:scale-[0.97] transition-[background-color,transform] duration-150 no-tap-highlight"
         >
-          <div className="absolute inset-0 rounded-full bg-danger-400 animate-pulse-ring opacity-20" />
-          <div className="absolute inset-0 rounded-full bg-danger-400 animate-pulse-ring opacity-15" style={{ animationDelay: "0.4s" }} />
-          <Icon name="Siren" className="w-14 h-14 md:w-16 md:h-16 mb-2 relative z-10" />
-          <span className="text-3xl md:text-4xl font-bold relative z-10">SOS</span>
-          <span className="text-xs md:text-sm text-danger-100 relative z-10 mt-1 text-center px-4">Press and hold for emergency assistance</span>
+          <Icon name="Siren" className="w-12 h-12 md:w-14 md:h-14 mb-2" strokeWidth={1.75} />
+          <span className="text-3xl md:text-4xl font-semibold tracking-wide">SOS</span>
+          <span className="text-xs md:text-sm text-danger-100 mt-1 text-center px-6">Press and hold for emergency assistance</span>
         </button>
       </div>
 
@@ -209,16 +201,16 @@ export default function EmergencyPage() {
           <button
             key={action.id}
             onClick={() => handleAction(action.id)}
-            className={`card card-hover card-glow p-5 flex items-start gap-4 text-left group stagger-${Math.min(idx + 1, 6)}`}
+            className={`card card-hover p-5 flex items-start gap-4 text-left group stagger-${Math.min(idx + 1, 6)}`}
           >
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${action.color} transition-transform group-hover:scale-110`}>
-              <Icon name={action.icon} className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-slate2-100 text-slate2-600">
+              <Icon name={action.icon} className="w-5 h-5" strokeWidth={1.75} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-navy-900">{action.label}</p>
+              <p className="text-sm font-semibold text-navy-900">{action.label}</p>
               <p className="text-xs text-slate2-500 mt-1 truncate">{actionDetail(action.id)}</p>
             </div>
-            <Icon name="ChevronRight" className="w-4 h-4 text-slate2-300 flex-shrink-0 mt-1 group-hover:text-navy-400 group-hover:translate-x-0.5 transition-all" />
+            <Icon name="ChevronRight" className="w-4 h-4 text-slate2-300 flex-shrink-0 mt-1 group-hover:text-navy-400 group-hover:translate-x-0.5 transition-[color,transform]" />
           </button>
         ))}
       </div>
@@ -227,14 +219,14 @@ export default function EmergencyPage() {
         <button
           onClick={handleSafe}
           disabled={checkIn.isPending}
-          className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-semibold text-sm transition-all duration-200 no-tap-highlight disabled:opacity-60 ${
+          className={`flex items-center gap-2.5 px-6 h-12 rounded-xl font-medium text-sm transition-[background-color,border-color,transform] duration-150 no-tap-highlight disabled:opacity-60 ${
             isSafe
-              ? "bg-safe-100 text-safe-700 border-2 border-safe-300"
-              : "bg-white text-safe-700 border-2 border-safe-200 hover:border-safe-400 hover:bg-safe-50 active:scale-95"
+              ? "bg-safe-50 text-safe-700 border border-safe-300"
+              : "bg-white text-safe-700 border border-safe-300 hover:bg-safe-50 active:scale-[0.98]"
           }`}
         >
           <Icon name={isSafe ? "CheckCircle2" : "ShieldCheck"} className="w-5 h-5" />
-          {checkIn.isPending ? "Sending…" : isSafe ? "You are marked as Safe" : "I am Safe"}
+          {checkIn.isPending ? "Sending…" : isSafe ? "You are marked as safe" : "I am safe"}
         </button>
         {isSafe && myCheckIn && (
           <p className="text-xs text-slate2-400">Checked in {alertRelativeTime(myCheckIn.created_at)}</p>

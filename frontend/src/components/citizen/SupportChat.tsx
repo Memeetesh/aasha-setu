@@ -48,11 +48,11 @@ export function SupportChat({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-navy-950/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-navy-950/50 animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="flex h-[560px] max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-3xl bg-white shadow-2xl animate-slide-up"
+        className="flex h-[560px] max-h-[90vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-white shadow-2xl animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between border-b border-slate2-100 px-5 py-4">
@@ -61,7 +61,7 @@ export function SupportChat({ onClose }: { onClose: () => void }) {
               <Icon name="Heart" className="h-5 w-5 text-support-600" />
             </div>
             <div>
-              <p className="text-sm font-bold text-navy-900">Talk to Saathi</p>
+              <p className="text-sm font-semibold text-navy-900">Talk to Saathi</p>
               <p className="text-[11px] text-slate2-500">A supportive AI companion</p>
             </div>
           </div>

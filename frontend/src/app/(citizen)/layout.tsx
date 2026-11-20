@@ -44,7 +44,7 @@ export default function CitizenLayout({ children }: { children: React.ReactNode 
 
         {mobileSidebarOpen && (
           <div className="lg:hidden fixed inset-0 z-[60] flex">
-            <div className="fixed inset-0 bg-navy-950/50 backdrop-blur-sm animate-fade-in" onClick={() => setMobileSidebarOpen(false)} />
+            <div className="fixed inset-0 bg-navy-950/50 animate-fade-in" onClick={() => setMobileSidebarOpen(false)} />
             <div className="relative animate-slide-in">
               <Sidebar onClose={() => setMobileSidebarOpen(false)} isMobile />
             </div>
@@ -58,7 +58,7 @@ export default function CitizenLayout({ children }: { children: React.ReactNode 
             <div className="max-w-7xl mx-auto">{children}</div>
           </main>
 
-          <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-slate2-100 shadow-[var(--shadow-card-lg)]">
+          <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate2-200/70">
             <div className="flex items-center justify-around px-2 py-1.5 max-w-md mx-auto">
               {mobileNavItems.map((item) => {
                 const active = pathname === item.href;
@@ -71,13 +71,12 @@ export default function CitizenLayout({ children }: { children: React.ReactNode 
                       active ? "text-navy-700" : "text-slate2-400"
                     }`}
                   >
-                    <div className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 ${
-                      isEmergency ? "bg-danger-600 text-white shadow-md shadow-danger-600/30 active:scale-90" : active ? "bg-navy-100 text-navy-700 scale-105" : ""
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-[background-color,transform] duration-150 ${
+                      isEmergency ? "bg-danger-600 text-white active:scale-[0.97]" : active ? "bg-navy-100 text-navy-700" : ""
                     }`}>
-                      <Icon name={item.icon} className="w-5 h-5" strokeWidth={isEmergency ? 2.5 : 2} />
-                      {isEmergency && <div className="absolute inset-0 rounded-xl bg-danger-400 animate-pulse-ring opacity-20" />}
+                      <Icon name={item.icon} className="w-5 h-5" strokeWidth={isEmergency ? 2 : 1.75} />
                     </div>
-                    <span className={`text-[10px] font-semibold ${active ? "text-navy-700" : "text-slate2-400"}`}>{item.label}</span>
+                    <span className={`text-[11px] font-medium ${active ? "text-navy-700" : "text-slate2-500"}`}>{item.label}</span>
                   </Link>
                 );
               })}
